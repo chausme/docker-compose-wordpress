@@ -1,7 +1,9 @@
 version: '3'
 services:
     apps_wp:
-        build: ./php7.4-apache
+        build:
+            context: ./php
+            target: php${PHP_VERSION}
         container_name: apps_wp
         volumes:
             - ./apps:/var/www/html
