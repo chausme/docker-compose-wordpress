@@ -10,13 +10,13 @@ services:
             - .env
         ports:
             - 81:80
-    server_wp:
-        build: ./server
-        container_name: server_wp
-        tty: true
-        stdin_open: true
+    nginx_wp:
+        build: ./nginx
+        container_name: nginx_wp
         ports:
             - 80:80
+        volumes:
+            - ./logs/nginx:/var/log/nginx
     database_wp:
         image: mysql:8
         container_name: database_wp
