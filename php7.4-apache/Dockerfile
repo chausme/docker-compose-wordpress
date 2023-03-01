@@ -26,8 +26,6 @@ RUN apt-get install -y \
 
 RUN docker-php-ext-install simplexml zip
 
-COPY config.php /var/www
-
 COPY php.ini /usr/local/etc/php
 RUN a2enmod rewrite
 
