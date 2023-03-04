@@ -1,10 +1,10 @@
 version: '3'
 services:
-    apps_wp:
+    php_wp:
         build:
             context: ./php
             target: php${PHP_VERSION}
-        container_name: apps_wp
+        container_name: php_wp
         volumes:
             - ./apps:/var/www/html
             - ./logs/apache2:/var/log/apache2
