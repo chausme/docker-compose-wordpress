@@ -44,8 +44,6 @@ MySQL 8 data is stored in persistent storage at `./database`
 -   Add `.env` file with variables based on `.env.local`
 -   Run `docker-compose build` to build images
 -   Run `docker-compose up` to start containers, it will take more time on an initial run
--   [each site] Update WP config with password, user and host values from `.env` file. _Please note:_ `DB_HOST` should be `database_wp` not `localhost`
--   [each site] Update or set `WP_HOME` and `WP_SITEURL` values inside WP config e.g. `http://wp.local/site1`
 -   Update `Windows\System32\drivers\etc\hosts` file with these two lines:
 
 ```
@@ -53,8 +51,10 @@ MySQL 8 data is stored in persistent storage at `./database`
 127.0.0.1 www.wp.local
 ```
 
--   [each site] Update directory owner to your WSL user and group to `www-data`, e.g. `sudo chown -R alex:www-data site1/`
 -   Connect to MySQL server with DBeaver or use another approach, create databases and import database dumps as necessary
+-   [each site] Update WP config with password, user and host values from `.env` file. _Please note:_ `DB_HOST` should be `database_wp` not `localhost`
+-   [each site] Update or set `WP_HOME` and `WP_SITEURL` values inside WP config e.g. `http://wp.local/site1`
+-   [each site] Update directory owner to your WSL user and group to `www-data`, e.g. `sudo chown -R alex:www-data site1/`
 
 _Optionally_
 
