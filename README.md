@@ -6,7 +6,7 @@
 
 ### Sites
 
-This setup is suitable for subdirectory-based development as per below, however could work for multiple separate projects with some adjustments
+This setup is intended for subdirectory-based development as per below, however could work for multiple separate projects with some adjustments
 
 ./apps<br />
 &ensp;&ensp;&ensp;./site1 - http://wp.local/site1<br />
