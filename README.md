@@ -22,6 +22,7 @@ This setup is intended for subdirectory-based development as per below, however 
 These versions are included:
 
 -   7.4
+-   8.0
 -   8.1
 -   8.2
 
@@ -61,7 +62,7 @@ _Optionally_
 -   Create `version.php` or a similar file inside `./apps` with `<?php phpinfo();` which is useful for checking current PHP version and installed extensions
 -   Adjust PHP version if necessary inside `.env` file
 -   Rebuild `php_wp` container with `docker-compose build php_wp`
--   Restart `php_wp` container with `docker-compose restart php_wp` or stop and start with `docker-compose stop php_wp && docker-compose up php_wp`
+-   Restart `php_wp` container with `docker-compose stop php_wp && docker-compose up php_wp`
 -   (each site) In order to upload files from WP dashboard, update owner of `/uploads` directory to `www-data`, some plugins might require other directories update as well
 
 ## Will it work somewhere else?
