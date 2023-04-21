@@ -26,6 +26,8 @@ RUN apt-get install -y \
 RUN docker-php-ext-install simplexml zip
 
 COPY ./php.ini /usr/local/etc/php
+COPY ./000-default.conf /etc/apache2/sites-available/
+COPY ./other-vhosts-access-log.conf /etc/apache2/conf-available/
 
 RUN a2enmod rewrite
 
@@ -129,6 +131,8 @@ RUN apt-get install -y \
 RUN docker-php-ext-install simplexml zip
 
 COPY ./php.ini /usr/local/etc/php
+COPY ./000-default.conf /etc/apache2/sites-available/
+COPY ./other-vhosts-access-log.conf /etc/apache2/conf-available/
 
 RUN a2enmod rewrite
 
