@@ -1,6 +1,6 @@
 # docker-compose-wordpress
 
-🐳 Very simple Docker Compose workflow for local WordPress development on Windows with WSL2
+🐳 Very simple Docker Compose workflow for local WordPress development on Windows with WSL2. \*uses latest Docker base images so could be potentially unstable in very rare cases
 
 ## Overview
 

@@ -1,7 +1,7 @@
 *.code-workspace
 .env
 
-apps/
+apps*
 database/
 logs/
 
