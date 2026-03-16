@@ -1,36 +1,39 @@
-version: '3'
 services:
-    php_wp:
-        build:
-            context: ./php
-            target: php${PHP_VERSION}
-        container_name: php_wp
-        volumes:
-            - ./apps:/var/www/html
-            - ./logs/apache2:/var/log/apache2
-        env_file:
-            - .env
-        ports:
-            - 81:80
-    nginx_wp:
-        build: ./nginx
-        container_name: nginx_wp
-        ports:
-            - 80:80
-        volumes:
-            - ./logs/nginx:/var/log/nginx
-    database_wp:
-        image: mysql:8
-        container_name: database_wp
-        command: --collation-server=utf8mb4_unicode_ci
-        env_file:
-            - .env
-        environment:
-            - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-            - MYSQL_USER=${DB_USER}
-            - MYSQL_PASSWORD=${DB_PASS}
-            - MYSQL_DATABASE=${DB_NAME}
-        volumes:
-            - ./database:/var/lib/mysql
-        ports:
-            - 3306:3306
+  php_wp:
+    build:
+      context: ./php
+      target: php${PHP_VERSION}
+    container_name: php_wp
+    depends_on:
+      - database_wp
+    volumes:
+      - ./apps:/var/www/html
+      - ./logs/apache2:/var/log/apache2
+    env_file:
+      - .env
+    ports:
+      - "81:80"
+  nginx_wp:
+    build: ./nginx
+    container_name: nginx_wp
+    depends_on:
+      - php_wp
+    ports:
+      - "80:80"
+    volumes:
+      - ./logs/nginx:/var/log/nginx
+  database_wp:
+    image: mysql:8
+    container_name: database_wp
+    command: --collation-server=utf8mb4_unicode_ci
+    env_file:
+      - .env
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+    volumes:
+      - ./database:/var/lib/mysql
+    ports:
+      - "3306:3306"
