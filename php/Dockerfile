@@ -1,3 +1,17 @@
+# PHP 5.6
+
+FROM php:5.6-apache AS php5.6
+
+RUN docker-php-ext-install mysqli
+
+COPY ./php.ini /usr/local/etc/php
+COPY ./000-default.conf /etc/apache2/sites-available/
+COPY ./other-vhosts-access-log.conf /etc/apache2/conf-available/
+
+RUN a2enmod rewrite
+
+CMD ["apache2-foreground"]
+
 # PHP 7.4
 
 FROM php:7.4-apache AS php7.4
