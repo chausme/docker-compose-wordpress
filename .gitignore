@@ -1,7 +1,9 @@
 *.code-workspace
 .env
 
-apps*
+apps/*
+!apps/version.php
+
 database/
 logs/
 

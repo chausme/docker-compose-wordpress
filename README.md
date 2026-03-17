@@ -6,13 +6,13 @@
 
 ### Sites
 
-This setup is intended for subdirectory-based development as shown below. It can also be adapted for multiple separate projects with small adjustments.
+This setup is intended for subdirectory-based development as shown below. It can also be adapted for multiple separate projects with small adjustments
 
 ```
 ./apps
-  ./site1  -> http://wp.local/site1
-  ./site2  -> http://wp.local/site2
-  ./site3  -> http://wp.local/site3
+  ./site1 -> http://wp.local/site1
+  ./site2 -> http://wp.local/site2
+  ./site3 -> http://wp.local/site3
 ./database
 ./logs
 ./nginx
@@ -21,13 +21,12 @@ This setup is intended for subdirectory-based development as shown below. It can
 
 ### Dockerfiles
 
-Uses the latest Docker base images. While this may introduce occasional upstream changes, no stability issues have been encountered so far
+Uses official Docker base images. While this may introduce occasional upstream changes, no stability issues have been encountered so far. PHP versions are configurable via build arguments, while MySQL is pinned to 8.4.
 
 ### PHP
 
-The following PHP versions are available:
+The following PHP versions are supported (depending on available Docker images):
 
-- 5.6 (minimal support for legacy projects)
 - 7.4
 - 8.0
 - 8.1
@@ -36,7 +35,7 @@ The following PHP versions are available:
 - 8.4
 - 8.5
 
-The following extensions are included for most PHP versions:
+Included extensions:
 
 - MySQLi
 - GD
@@ -45,16 +44,16 @@ The following extensions are included for most PHP versions:
 
 ### Database
 
-MySQL 8 data is stored persistently in the `./database` directory
+MySQL 8.4 data is stored persistently in the `./database` directory
 
 ## Usage
 
 - Make sure Docker Desktop is installed and running
 - Clone this repository inside the Linux filesystem (WSL)
-- Place site subdirectories inside `./apps` in the root of the repository
-- Create a `.env` file using `.env.local` as a reference
+- Place site subdirectories inside `./apps` directory
+- Create an `.env` file using `.env.local` as a reference
 - Run `docker compose build` to build the images
-- Run `docker compose up` to start the containers (the first run may take longer)
+- Run `docker compose up` or `docker compose up -d` to start the containers (the first run may take longer)
 - Update the `Windows\System32\drivers\etc\hosts` file with the following entries:
 
 ```
@@ -62,7 +61,7 @@ MySQL 8 data is stored persistently in the `./database` directory
 127.0.0.1 www.wp.local
 ```
 
-- Connect to the MySQL server using DBeaver or another client, create databases and import dumps as needed
+- Connect to the MySQL server (e.g. DBeaver), create databases and import dumps as needed
 - For each site, update the WordPress config with the database credentials from the `.env` file  
   _Note:_ `DB_HOST` should be `database_wp`, not `localhost`
 - For each site, update or set `WP_HOME` and `WP_SITEURL`, for example: `http://wp.local/site1`
@@ -70,10 +69,10 @@ MySQL 8 data is stored persistently in the `./database` directory
 
 _Optional_
 
-- Create a `version.php` (or similar) file inside `./apps` containing `<?php phpinfo();` to check the current PHP version and installed extensions
-- Adjust the PHP version in the `.env` file if necessary
+- Change the PHP version in the `.env` file if necessary, it's set to 8.3 by default
 - Rebuild the `php_wp` container with `docker compose build php_wp`
 - Restart the `php_wp` container with `docker compose stop php_wp && docker compose up php_wp`
+- Check the current PHP version and installed extensions at `http://wp.local/version.php`
 - For each site, to enable file uploads from the WordPress dashboard, update the owner of the `/uploads` directory to `www-data`. Some plugins may require additional directories to be updated as well
 
 ## Will it work somewhere else?
