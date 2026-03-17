@@ -2,7 +2,8 @@ services:
   php_wp:
     build:
       context: ./php
-      target: php${PHP_VERSION}
+      args:
+        PHP_VERSION: ${PHP_VERSION:-8.3}
     container_name: php_wp
     depends_on:
       - database_wp
