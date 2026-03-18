@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.0.0] - 2026-03-18
+
+### Changed
+
+- Refactored nginx proxy to use Docker service networking.
+- Simplified Docker Compose service naming (breaking change).
+- Improved nginx config.
+
 ## [2.0.0] - 2026-03-17
 
 ### Added

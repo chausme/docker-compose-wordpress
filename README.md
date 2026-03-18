@@ -4,20 +4,32 @@
 
 ## Overview
 
+### Architecture
+
+- `nginx` – reverse proxy, exposed on port 80
+- `php` – PHP + Apache (WordPress)
+- `database` – MySQL 8.4
+
+All services communicate via Docker Compose internal network.
+
 ### Sites
 
-This setup is intended for subdirectory-based development as shown below. It can also be adapted for multiple separate projects with small adjustments
+This setup is intended for subdirectory-based WordPress development (multiple sites under a single domain) as shown below. It can also be adapted for multiple separate projects if needed.
 
 ```
 ./apps
   ./site1 -> http://wp.local/site1
   ./site2 -> http://wp.local/site2
-  ./site3 -> http://wp.local/site3
 ./database
 ./logs
 ./nginx
 ./php
 ```
+
+### Access
+
+- Application: http://wp.local/site1 (example)
+- MySQL: localhost:3306 (optional external access)
 
 ### Dockerfiles
 
@@ -25,7 +37,7 @@ Uses official Docker base images. While this may introduce occasional upstream c
 
 ### PHP
 
-The following PHP versions are supported (depending on available Docker images):
+The following PHP versions are supported:
 
 - 7.4
 - 8.0
@@ -44,7 +56,7 @@ Included extensions:
 
 ### Database
 
-MySQL 8.4 data is stored persistently in the `./database` directory
+MySQL 8.4 data is stored persistently in the `./database` directory.
 
 ## Usage
 
@@ -52,8 +64,7 @@ MySQL 8.4 data is stored persistently in the `./database` directory
 - Clone this repository inside the Linux filesystem (WSL)
 - Place site subdirectories inside `./apps` directory
 - Create an `.env` file using `.env.local` as a reference
-- Run `docker compose build` to build the images
-- Run `docker compose up` or `docker compose up -d` to start the containers (the first run may take longer)
+- Run `docker compose up --build` or `docker compose up -d --build` to build and start the containers (the first run may take a bit longer)
 - Update the `Windows\System32\drivers\etc\hosts` file with the following entries:
 
 ```
@@ -63,15 +74,14 @@ MySQL 8.4 data is stored persistently in the `./database` directory
 
 - Connect to the MySQL server (e.g. DBeaver), create databases and import dumps as needed
 - For each site, update the WordPress config with the database credentials from the `.env` file  
-  _Note:_ `DB_HOST` should be `database_wp`, not `localhost`
+  _Note:_ `DB_HOST` should be `database`, not `localhost`
 - For each site, update or set `WP_HOME` and `WP_SITEURL`, for example: `http://wp.local/site1`
 - For each site, update the directory owner to your WSL user and group to `www-data`, e.g. `sudo chown -R username:www-data site1/`
 
-_Optional_
+### Optional
 
 - Change the PHP version in the `.env` file if necessary, it's set to 8.3 by default
-- Rebuild the `php_wp` container with `docker compose build php_wp`
-- Restart the `php_wp` container with `docker compose stop php_wp && docker compose up php_wp`
+- Rebuild and recreate the `php` container with `docker compose up --build php` or `docker compose up -d --build php`
 - Check the current PHP version and installed extensions at `http://wp.local/version.php`
 - For each site, to enable file uploads from the WordPress dashboard, update the owner of the `/uploads` directory to `www-data`. Some plugins may require additional directories to be updated as well
 
