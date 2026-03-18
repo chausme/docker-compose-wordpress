@@ -12,8 +12,6 @@ services:
       - ./logs/apache2:/var/log/apache2
     env_file:
       - .env
-    ports:
-      - "81:80"
   nginx_wp:
     build: ./nginx
     container_name: nginx_wp
