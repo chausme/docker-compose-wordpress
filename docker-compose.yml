@@ -1,29 +1,26 @@
 services:
-  php_wp:
+  php:
     build:
       context: ./php
       args:
         PHP_VERSION: ${PHP_VERSION:-8.3}
-    container_name: php_wp
     depends_on:
-      - database_wp
+      - database
     volumes:
       - ./apps:/var/www/html
       - ./logs/apache2:/var/log/apache2
     env_file:
       - .env
-  nginx_wp:
+  nginx:
     build: ./nginx
-    container_name: nginx_wp
     depends_on:
-      - php_wp
+      - php
     ports:
       - "80:80"
     volumes:
       - ./logs/nginx:/var/log/nginx
-  database_wp:
+  database:
     image: mysql:8.4
-    container_name: database_wp
     command: --collation-server=utf8mb4_unicode_ci
     env_file:
       - .env
